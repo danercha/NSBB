@@ -12,10 +12,11 @@ namespace FF_NSBB.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class TAKEN
+    public partial class FF_Turn
     {
         public int ID { get; set; }
-        public string POS { get; set; }
-        public Nullable<int> COUNT { get; set; }
+        public int DRAFTSPOT { get; set; }
+        public int MAXCOUNT { get; set; }
+        public bool UPDOWN { get; set; }
     }
 }

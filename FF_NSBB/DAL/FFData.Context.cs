@@ -25,11 +25,11 @@ namespace FF_NSBB.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DRAFT> DRAFTs { get; set; }
-        public virtual DbSet<League> Leagues { get; set; }
-        public virtual DbSet<Player> Players { get; set; }
-        public virtual DbSet<TAKEN> TAKENs { get; set; }
-        public virtual DbSet<Team> Teams { get; set; }
-        public virtual DbSet<Turn> Turns { get; set; }
+        public virtual DbSet<FF_DRAFT> FF_DRAFT { get; set; }
+        public virtual DbSet<FF_League> FF_League { get; set; }
+        public virtual DbSet<FF_Player> FF_Player { get; set; }
+        public virtual DbSet<FF_TAKEN> FF_TAKEN { get; set; }
+        public virtual DbSet<FF_Team> FF_Team { get; set; }
+        public virtual DbSet<FF_Turn> FF_Turn { get; set; }
     }
 }

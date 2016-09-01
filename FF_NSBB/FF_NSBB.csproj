@@ -230,9 +230,6 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\DRAFT.cs">
-      <DependentUpon>FFData.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\FFData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -248,19 +245,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FFData.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\League.cs">
+    <Compile Include="DAL\FF_DRAFT.cs">
       <DependentUpon>FFData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Player.cs">
+    <Compile Include="DAL\FF_League.cs">
       <DependentUpon>FFData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\TAKEN.cs">
+    <Compile Include="DAL\FF_Player.cs">
       <DependentUpon>FFData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Team.cs">
+    <Compile Include="DAL\FF_TAKEN.cs">
       <DependentUpon>FFData.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Turn.cs">
+    <Compile Include="DAL\FF_Team.cs">
+      <DependentUpon>FFData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\FF_Turn.cs">
       <DependentUpon>FFData.tt</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">

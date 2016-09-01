@@ -27,7 +27,7 @@ namespace FF_NSBB
         {
             using (FF2014Entities stx = new FF2014Entities())
             {
-                var _players = from p in stx.Players
+                var _players = from p in stx.FF_Player
                                where p.DRAFTED == false
                                select p;
 
@@ -46,7 +46,7 @@ namespace FF_NSBB
 
             using (FF2014Entities ptx = new FF2014Entities())
             {
-                var _players = from p in ptx.Players
+                var _players = from p in ptx.FF_Player
                                where p.DRAFTED == false
                                select p;
                 foreach (var p in _players)
@@ -91,13 +91,13 @@ namespace FF_NSBB
         #region Stuff
         private void updateCount(int pid, FF2014Entities itx, bool updown)
         {
-            var p = (from y in itx.Players
+            var p = (from y in itx.FF_Player
                      where y.ID == pid
                      select y).First();
 
             string _pos = p.POS.Trim();
 
-            var c = (from x in itx.TAKENs
+            var c = (from x in itx.FF_TAKEN
                      where x.POS == _pos
                      select x).First();
 
@@ -115,7 +115,7 @@ namespace FF_NSBB
             // if(Session["_team"] != null) {team = (MyTeam)Session["_team"];}
             using (FF2014Entities itx = new FF2014Entities())
             {
-                var _player = from p in itx.Players
+                var _player = from p in itx.FF_Player
                               where p.MYTEAM == true
                               select p;
 
@@ -240,7 +240,7 @@ namespace FF_NSBB
 
         private void getCounters(FF2014Entities ptx)
         {
-            var counters = from x in ptx.TAKENs
+            var counters = from x in ptx.FF_TAKEN
                            select x;
             int totalcount = 0;
 
@@ -299,7 +299,7 @@ namespace FF_NSBB
             {
                 using (FF2014Entities itx = new FF2014Entities())
                 {
-                    var _i = from i in itx.Players
+                    var _i = from i in itx.FF_Player
                              where i.ID == _id
                              select i;
                     foreach (var t in _i)
@@ -318,7 +318,7 @@ namespace FF_NSBB
             {
                 using (FF2014Entities itx = new FF2014Entities())
                 {
-                    var _i = from i in itx.Players
+                    var _i = from i in itx.FF_Player
                              where i.ID == _id
                              select i;
                     foreach (var t in _i)
@@ -352,7 +352,7 @@ namespace FF_NSBB
             {
                 using (FF2014Entities itx = new FF2014Entities())
                 {
-                    var _i = from i in itx.Players
+                    var _i = from i in itx.FF_Player
                              where i.ID == _id
                              select i;
                     foreach (var t in _i)
@@ -372,7 +372,7 @@ namespace FF_NSBB
             {
                 using (FF2014Entities itx = new FF2014Entities())
                 {
-                    var _i = from i in itx.Players
+                    var _i = from i in itx.FF_Player
                              where i.ID == _id
                              select i;
                     foreach (var t in _i)

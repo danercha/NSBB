@@ -12,13 +12,10 @@ namespace FF_NSBB.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class League
+    public partial class FF_TAKEN
     {
         public int ID { get; set; }
-        public Nullable<int> TEAMID { get; set; }
-        public Nullable<int> PLAYERID { get; set; }
-    
-        public virtual Player Player { get; set; }
-        public virtual Team Team { get; set; }
+        public string POS { get; set; }
+        public Nullable<int> COUNT { get; set; }
     }
 }

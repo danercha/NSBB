@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FF2014Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="DRAFT">
+      <Schema Namespace="db5448bbf8bffc436783e8a649012e22ecModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FF_DRAFT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -13,7 +13,7 @@
           <Property Name="TEAMID" Type="int" Nullable="false" />
           <Property Name="DRAFT" Type="int" />
         </EntityType>
-        <EntityType Name="League">
+        <EntityType Name="FF_League">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -21,7 +21,7 @@
           <Property Name="TEAMID" Type="int" />
           <Property Name="PLAYERID" Type="int" />
         </EntityType>
-        <EntityType Name="Player">
+        <EntityType Name="FF_Player">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -39,7 +39,7 @@
           <Property Name="MYTEAM" Type="bit" />
           <Property Name="SID" Type="nchar" MaxLength="10" />
         </EntityType>
-        <EntityType Name="TAKEN">
+        <EntityType Name="FF_TAKEN">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -47,7 +47,7 @@
           <Property Name="POS" Type="nchar" MaxLength="3" />
           <Property Name="COUNT" Type="int" />
         </EntityType>
-        <EntityType Name="Team">
+        <EntityType Name="FF_Team">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -56,7 +56,7 @@
           <Property Name="TeamManager" Type="nchar" MaxLength="50" />
           <Property Name="Picture" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="Turn">
+        <EntityType Name="FF_Turn">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -66,86 +66,69 @@
           <Property Name="UPDOWN" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_DRAFT_Team">
-          <End Role="Team" Type="Self.Team" Multiplicity="1" />
-          <End Role="DRAFT" Type="Self.DRAFT" Multiplicity="*" />
+          <End Role="FF_Team" Type="Self.FF_Team" Multiplicity="1" />
+          <End Role="FF_DRAFT" Type="Self.FF_DRAFT" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Team">
+            <Principal Role="FF_Team">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="DRAFT">
+            <Dependent Role="FF_DRAFT">
               <PropertyRef Name="TEAMID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_League_Player">
-          <End Role="Player" Type="Self.Player" Multiplicity="0..1" />
-          <End Role="League" Type="Self.League" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Player">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="League">
-              <PropertyRef Name="PLAYERID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_League_Team">
-          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
-          <End Role="League" Type="Self.League" Multiplicity="*" />
+          <End Role="FF_Player" Type="Self.FF_Player" Multiplicity="0..1" />
+          <End Role="FF_League" Type="Self.FF_League" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Team">
+            <Principal Role="FF_Player">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="League">
-              <PropertyRef Name="TEAMID" />
+            <Dependent Role="FF_League">
+              <PropertyRef Name="PLAYERID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FF2014ModelStoreContainer">
-          <EntitySet Name="DRAFT" EntityType="Self.DRAFT" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="League" EntityType="Self.League" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TAKEN" EntityType="Self.TAKEN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Turn" EntityType="Self.Turn" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="db5448bbf8bffc436783e8a649012e22ecModelStoreContainer">
+          <EntitySet Name="FF_DRAFT" EntityType="Self.FF_DRAFT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FF_League" EntityType="Self.FF_League" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FF_Player" EntityType="Self.FF_Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FF_TAKEN" EntityType="Self.FF_TAKEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FF_Team" EntityType="Self.FF_Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FF_Turn" EntityType="Self.FF_Turn" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DRAFT_Team" Association="Self.FK_DRAFT_Team">
-            <End Role="Team" EntitySet="Team" />
-            <End Role="DRAFT" EntitySet="DRAFT" />
-          </AssociationSet>
-          <AssociationSet Name="FK_League_Player" Association="Self.FK_League_Player">
-            <End Role="Player" EntitySet="Player" />
-            <End Role="League" EntitySet="League" />
+            <End Role="FF_Team" EntitySet="FF_Team" />
+            <End Role="FF_DRAFT" EntitySet="FF_DRAFT" />
           </AssociationSet>
           <AssociationSet Name="FK_League_Team" Association="Self.FK_League_Team">
-            <End Role="Team" EntitySet="Team" />
-            <End Role="League" EntitySet="League" />
+            <End Role="FF_Player" EntitySet="FF_Player" />
+            <End Role="FF_League" EntitySet="FF_League" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FF2014Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="DRAFT">
+      <Schema Namespace="db5448bbf8bffc436783e8a649012e22ecModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FF_DRAFT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TEAMID" Type="Int32" Nullable="false" />
-          <Property Name="DRAFT1" Type="Int32" />
-          <NavigationProperty Name="Team" Relationship="Self.FK_DRAFT_Team" FromRole="DRAFT" ToRole="Team" />
+          <Property Name="DRAFT" Type="Int32" />
+          <NavigationProperty Name="FF_Team" Relationship="Self.FK_DRAFT_Team" FromRole="FF_DRAFT" ToRole="FF_Team" />
         </EntityType>
-        <EntityType Name="League">
+        <EntityType Name="FF_League">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TEAMID" Type="Int32" />
           <Property Name="PLAYERID" Type="Int32" />
-          <NavigationProperty Name="Player" Relationship="Self.FK_League_Player" FromRole="League" ToRole="Player" />
-          <NavigationProperty Name="Team" Relationship="Self.FK_League_Team" FromRole="League" ToRole="Team" />
+          <NavigationProperty Name="FF_Player" Relationship="Self.FK_League_Team" FromRole="FF_League" ToRole="FF_Player" />
         </EntityType>
-        <EntityType Name="Player">
+        <EntityType Name="FF_Player">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -162,9 +145,9 @@
           <Property Name="DRAFTED" Type="Boolean" />
           <Property Name="MYTEAM" Type="Boolean" />
           <Property Name="SID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Leagues" Relationship="Self.FK_League_Player" FromRole="Player" ToRole="League" />
+          <NavigationProperty Name="FF_League" Relationship="Self.FK_League_Team" FromRole="FF_Player" ToRole="FF_League" />
         </EntityType>
-        <EntityType Name="TAKEN">
+        <EntityType Name="FF_TAKEN">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -172,7 +155,7 @@
           <Property Name="POS" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
           <Property Name="COUNT" Type="Int32" />
         </EntityType>
-        <EntityType Name="Team">
+        <EntityType Name="FF_Team">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -180,10 +163,9 @@
           <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="TeamManager" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DRAFTs" Relationship="Self.FK_DRAFT_Team" FromRole="Team" ToRole="DRAFT" />
-          <NavigationProperty Name="Leagues" Relationship="Self.FK_League_Team" FromRole="Team" ToRole="League" />
+          <NavigationProperty Name="FF_DRAFT" Relationship="Self.FK_DRAFT_Team" FromRole="FF_Team" ToRole="FF_DRAFT" />
         </EntityType>
-        <EntityType Name="Turn">
+        <EntityType Name="FF_Turn">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -193,59 +175,43 @@
           <Property Name="UPDOWN" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_DRAFT_Team">
-          <End Role="Team" Type="Self.Team" Multiplicity="1" />
-          <End Role="DRAFT" Type="Self.DRAFT" Multiplicity="*" />
+          <End Role="FF_Team" Type="Self.FF_Team" Multiplicity="1" />
+          <End Role="FF_DRAFT" Type="Self.FF_DRAFT" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Team">
+            <Principal Role="FF_Team">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="DRAFT">
+            <Dependent Role="FF_DRAFT">
               <PropertyRef Name="TEAMID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_League_Player">
-          <End Role="Player" Type="Self.Player" Multiplicity="0..1" />
-          <End Role="League" Type="Self.League" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Player">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="League">
-              <PropertyRef Name="PLAYERID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_League_Team">
-          <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
-          <End Role="League" Type="Self.League" Multiplicity="*" />
+          <End Role="FF_Player" Type="Self.FF_Player" Multiplicity="0..1" />
+          <End Role="FF_League" Type="Self.FF_League" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Team">
+            <Principal Role="FF_Player">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="League">
-              <PropertyRef Name="TEAMID" />
+            <Dependent Role="FF_League">
+              <PropertyRef Name="PLAYERID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="FF2014Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DRAFTs" EntityType="Self.DRAFT" />
-          <EntitySet Name="Leagues" EntityType="Self.League" />
-          <EntitySet Name="Players" EntityType="Self.Player" />
-          <EntitySet Name="TAKENs" EntityType="Self.TAKEN" />
-          <EntitySet Name="Teams" EntityType="Self.Team" />
-          <EntitySet Name="Turns" EntityType="Self.Turn" />
+          <EntitySet Name="FF_DRAFT" EntityType="Self.FF_DRAFT" />
+          <EntitySet Name="FF_League" EntityType="Self.FF_League" />
+          <EntitySet Name="FF_Player" EntityType="Self.FF_Player" />
+          <EntitySet Name="FF_TAKEN" EntityType="Self.FF_TAKEN" />
+          <EntitySet Name="FF_Team" EntityType="Self.FF_Team" />
+          <EntitySet Name="FF_Turn" EntityType="Self.FF_Turn" />
           <AssociationSet Name="FK_DRAFT_Team" Association="Self.FK_DRAFT_Team">
-            <End Role="Team" EntitySet="Teams" />
-            <End Role="DRAFT" EntitySet="DRAFTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_League_Player" Association="Self.FK_League_Player">
-            <End Role="Player" EntitySet="Players" />
-            <End Role="League" EntitySet="Leagues" />
+            <End Role="FF_Team" EntitySet="FF_Team" />
+            <End Role="FF_DRAFT" EntitySet="FF_DRAFT" />
           </AssociationSet>
           <AssociationSet Name="FK_League_Team" Association="Self.FK_League_Team">
-            <End Role="Team" EntitySet="Teams" />
-            <End Role="League" EntitySet="Leagues" />
+            <End Role="FF_Player" EntitySet="FF_Player" />
+            <End Role="FF_League" EntitySet="FF_League" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -253,28 +219,28 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FF2014ModelStoreContainer" CdmEntityContainer="FF2014Entities">
-          <EntitySetMapping Name="DRAFTs">
-            <EntityTypeMapping TypeName="FF2014Model.DRAFT">
-              <MappingFragment StoreEntitySet="DRAFT">
+        <EntityContainerMapping StorageEntityContainer="db5448bbf8bffc436783e8a649012e22ecModelStoreContainer" CdmEntityContainer="FF2014Entities">
+          <EntitySetMapping Name="FF_DRAFT">
+            <EntityTypeMapping TypeName="db5448bbf8bffc436783e8a649012e22ecModel.FF_DRAFT">
+              <MappingFragment StoreEntitySet="FF_DRAFT">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TEAMID" ColumnName="TEAMID" />
-                <ScalarProperty Name="DRAFT1" ColumnName="DRAFT" />
+                <ScalarProperty Name="DRAFT" ColumnName="DRAFT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Leagues">
-            <EntityTypeMapping TypeName="FF2014Model.League">
-              <MappingFragment StoreEntitySet="League">
+          <EntitySetMapping Name="FF_League">
+            <EntityTypeMapping TypeName="db5448bbf8bffc436783e8a649012e22ecModel.FF_League">
+              <MappingFragment StoreEntitySet="FF_League">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TEAMID" ColumnName="TEAMID" />
                 <ScalarProperty Name="PLAYERID" ColumnName="PLAYERID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Players">
-            <EntityTypeMapping TypeName="FF2014Model.Player">
-              <MappingFragment StoreEntitySet="Player">
+          <EntitySetMapping Name="FF_Player">
+            <EntityTypeMapping TypeName="db5448bbf8bffc436783e8a649012e22ecModel.FF_Player">
+              <MappingFragment StoreEntitySet="FF_Player">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FIRST" ColumnName="FIRST" />
                 <ScalarProperty Name="LAST" ColumnName="LAST" />
@@ -291,18 +257,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TAKENs">
-            <EntityTypeMapping TypeName="FF2014Model.TAKEN">
-              <MappingFragment StoreEntitySet="TAKEN">
+          <EntitySetMapping Name="FF_TAKEN">
+            <EntityTypeMapping TypeName="db5448bbf8bffc436783e8a649012e22ecModel.FF_TAKEN">
+              <MappingFragment StoreEntitySet="FF_TAKEN">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="POS" ColumnName="POS" />
                 <ScalarProperty Name="COUNT" ColumnName="COUNT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Teams">
-            <EntityTypeMapping TypeName="FF2014Model.Team">
-              <MappingFragment StoreEntitySet="Team">
+          <EntitySetMapping Name="FF_Team">
+            <EntityTypeMapping TypeName="db5448bbf8bffc436783e8a649012e22ecModel.FF_Team">
+              <MappingFragment StoreEntitySet="FF_Team">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TeamName" ColumnName="TeamName" />
                 <ScalarProperty Name="TeamManager" ColumnName="TeamManager" />
@@ -310,9 +276,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Turns">
-            <EntityTypeMapping TypeName="FF2014Model.Turn">
-              <MappingFragment StoreEntitySet="Turn">
+          <EntitySetMapping Name="FF_Turn">
+            <EntityTypeMapping TypeName="db5448bbf8bffc436783e8a649012e22ecModel.FF_Turn">
+              <MappingFragment StoreEntitySet="FF_Turn">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DRAFTSPOT" ColumnName="DRAFTSPOT" />
                 <ScalarProperty Name="MAXCOUNT" ColumnName="MAXCOUNT" />

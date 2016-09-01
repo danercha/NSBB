@@ -12,13 +12,12 @@ namespace FF_NSBB.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Team
+    public partial class FF_Team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Team()
+        public FF_Team()
         {
-            this.DRAFTs = new HashSet<DRAFT>();
-            this.Leagues = new HashSet<League>();
+            this.FF_DRAFT = new HashSet<FF_DRAFT>();
         }
     
         public int ID { get; set; }
@@ -27,8 +26,6 @@ namespace FF_NSBB.DAL
         public string Picture { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DRAFT> DRAFTs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<League> Leagues { get; set; }
+        public virtual ICollection<FF_DRAFT> FF_DRAFT { get; set; }
     }
 }

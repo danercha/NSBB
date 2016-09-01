@@ -34,7 +34,7 @@ namespace FF_NSBB
             int t = 0;
             using (FF2014Entities gtx = new FF2014Entities())
             {
-                var _t = from x in gtx.Turns
+                var _t = from x in gtx.FF_Turn
                          where x.ID == 1
                          select x.DRAFTSPOT;
                 foreach (var u in _t)
@@ -51,11 +51,11 @@ namespace FF_NSBB
 
             using (FF2014Entities itx = new FF2014Entities())
             {
-                var im = (from x in itx.Teams
+                var im = (from x in itx.FF_Team
                           from d
-                          in itx.DRAFTs.Where(o => x.ID == o.TEAMID).DefaultIfEmpty()
-                          group new { x.ID, d.DRAFT1, x.TeamName, x.TeamManager, x.Picture } by new { x.ID, d.DRAFT1, x.TeamName, x.TeamManager, x.Picture } into g
-                          orderby g.Key.DRAFT1
+                          in itx.FF_DRAFT.Where(o => x.ID == o.TEAMID).DefaultIfEmpty()
+                          group new { x.ID, d.DRAFT, x.TeamName, x.TeamManager, x.Picture } by new { x.ID, d.DRAFT, x.TeamName, x.TeamManager, x.Picture } into g
+                          orderby g.Key.DRAFT
                           select new { ID = g.Key.ID, TeamName = g.Key.TeamName, TeamManager = g.Key.TeamManager, Picture = g.Key.Picture });
 
                 foreach (var a in im)
@@ -64,9 +64,9 @@ namespace FF_NSBB
 
                     using (FF2014Entities dtx = new FF2014Entities())
                     {
-                        var did = (from i in dtx.DRAFTs
+                        var did = (from i in dtx.FF_DRAFT
                                    where i.TEAMID == a.ID
-                                   select i.DRAFT1).FirstOrDefault();
+                                   select i.DRAFT).FirstOrDefault();
 
                         draftnum = int.Parse(did.ToString());
                     }
@@ -74,7 +74,7 @@ namespace FF_NSBB
 
                     _teams.Add(new localTeam { TeamName = a.TeamName, TeamManager = a.TeamManager, Picture = "IMG/" + a.Picture, DraftOrder = draftnum, ID = a.ID });
                 }
-                var cur = (from i in itx.Teams
+                var cur = (from i in itx.FF_Team
                            where i.ID == drafting
                            select i).First();
                 curname = cur.TeamName;
@@ -93,11 +93,11 @@ namespace FF_NSBB
             List<int> teamIDs = new List<int>();
             using (FF2014Entities itx = new FF2014Entities())
             {
-                var _tids = (from x in itx.Teams
+                var _tids = (from x in itx.FF_Team
                              from d
-                             in itx.DRAFTs.Where(o => x.ID == o.TEAMID).DefaultIfEmpty()
-                             group new { x.ID, d.DRAFT1, x.TeamName, x.TeamManager, x.Picture } by new { x.ID, d.DRAFT1, x.TeamName, x.TeamManager, x.Picture } into g
-                             orderby g.Key.DRAFT1
+                             in itx.FF_DRAFT.Where(o => x.ID == o.TEAMID).DefaultIfEmpty()
+                             group new { x.ID, d.DRAFT, x.TeamName, x.TeamManager, x.Picture } by new { x.ID, d.DRAFT, x.TeamName, x.TeamManager, x.Picture } into g
+                             orderby g.Key.DRAFT
                              select new { ID = g.Key.ID, TeamName = g.Key.TeamName, TeamManager = g.Key.TeamManager, Picture = g.Key.Picture });
 
                 foreach (var u in _tids)
@@ -107,13 +107,13 @@ namespace FF_NSBB
 
                 foreach (FFTeam f in _teams)
                 {
-                    var _pids = from l in itx.Leagues
+                    var _pids = from l in itx.FF_League
                                 where l.TEAMID == f.TeamID
                                 select l.PLAYERID;
 
                     foreach (int l in _pids)
                     {
-                        var _player = from p in itx.Players
+                        var _player = from p in itx.FF_Player
                                       where p.ID == l
                                       select p;
 
@@ -246,13 +246,13 @@ namespace FF_NSBB
         {
             using (FF2014Entities ttt = new FF2014Entities())
             {
-                var p = (from y in ttt.Players
+                var p = (from y in ttt.FF_Player
                          where y.ID == pid
                          select y).First();
 
                 string _pos = p.POS.Trim();
 
-                var c = (from x in ttt.TAKENs
+                var c = (from x in ttt.FF_TAKEN
                          where x.POS == _pos
                          select x).First();
 
@@ -279,16 +279,16 @@ namespace FF_NSBB
 
                 using (FF2014Entities ptx = new FF2014Entities())
                 {
-                    var tid = (from i in ptx.DRAFTs
-                               where i.DRAFT1 == drafting
+                    var tid = (from i in ptx.FF_DRAFT
+                               where i.DRAFT == drafting
                                select i.TEAMID).First();
 
-                    League l = new League { PLAYERID = pid, TEAMID = (int)tid };
-                    ptx.Leagues.Add(l);
+                    FF_League l = new FF_League { PLAYERID = pid, TEAMID = (int)tid };
+                    ptx.FF_League.Add(l);
 
                     ptx.SaveChanges();
 
-                    var p = from layer in ptx.Players
+                    var p = from layer in ptx.FF_Player
                             where layer.ID == pid
                             select layer;
 
@@ -308,7 +308,7 @@ namespace FF_NSBB
 
                 using (FF2014Entities stx = new FF2014Entities())
                 {
-                    var s = from x in stx.Turns
+                    var s = from x in stx.FF_Turn
                             where x.ID == 1
                             select x;
 
@@ -358,11 +358,11 @@ namespace FF_NSBB
 
             using (FF2014Entities ltx = new FF2014Entities())
             {
-                var row = from l in ltx.Leagues
+                var row = from l in ltx.FF_League
                           from t
-                          in ltx.Teams.Where(o => l.TEAMID == o.ID).DefaultIfEmpty()
+                          in ltx.FF_Team.Where(o => l.TEAMID == o.ID).DefaultIfEmpty()
                           from p
-                          in ltx.Players.Where(z => l.PLAYERID == z.ID).DefaultIfEmpty()
+                          in ltx.FF_Player.Where(z => l.PLAYERID == z.ID).DefaultIfEmpty()
                           select new
                           {
                               Teamname = t.TeamName,
@@ -397,7 +397,7 @@ namespace FF_NSBB
 
             using (FF2014Entities atx = new FF2014Entities())
             {
-                var _a = from d in atx.Players
+                var _a = from d in atx.FF_Player
                          let fullname = d.FIRST + " " + d.LAST
                          where fullname.Contains(keyword) && d.DRAFTED == false
                          select d;

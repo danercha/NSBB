@@ -12,11 +12,12 @@ namespace FF_NSBB.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Turn
+    public partial class FF_DRAFT
     {
         public int ID { get; set; }
-        public int DRAFTSPOT { get; set; }
-        public int MAXCOUNT { get; set; }
-        public bool UPDOWN { get; set; }
+        public int TEAMID { get; set; }
+        public Nullable<int> DRAFT { get; set; }
+    
+        public virtual FF_Team FF_Team { get; set; }
     }
 }
