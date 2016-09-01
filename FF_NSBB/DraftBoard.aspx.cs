@@ -62,29 +62,33 @@ namespace FF_NSBB
                 {
                     int? draftnum;
 
-                    using (FF2014Entities dtx = new FF2014Entities())
-                    {
-                        var did = (from i in dtx.FF_DRAFT
-                                   where i.TEAMID == a.ID
-                                   select i.DRAFT).FirstOrDefault();
 
-                        draftnum = int.Parse(did.ToString());
-                    }
+                    var did = (from i in itx.FF_DRAFT
+                               where i.TEAMID == a.ID
+                               select i.DRAFT).FirstOrDefault();
+
+                    draftnum = int.Parse(did.ToString());
+
 
 
                     _teams.Add(new localTeam { TeamName = a.TeamName, TeamManager = a.TeamManager, Picture = "IMG/" + a.Picture, DraftOrder = draftnum, ID = a.ID });
                 }
+                
+                var curdraft = (from f in itx.FF_DRAFT
+                                where f.DRAFT == drafting
+                                select f).FirstOrDefault();
+
                 var cur = (from i in itx.FF_Team
-                           where i.ID == drafting
+                           where i.ID == curdraft.TEAMID
                            select i).First();
+
                 curname = cur.TeamName;
 
-                itx.Dispose();
             }
 
             rptDrafters.DataSource = _teams;
             rptDrafters.DataBind();
-            lblNowDrafting.Text = curname;
+            lblNowDrafting.Text = curname.Trim();
         }
 
         private void updateTeam()
@@ -295,7 +299,7 @@ namespace FF_NSBB
                     foreach (var y in p)
                     {
                         y.DRAFTED = true;
-                        if(tid == 1)
+                        if (tid == 1)
                         {
                             y.MYTEAM = true;
                         }
