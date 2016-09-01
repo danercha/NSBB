@@ -94,7 +94,6 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <a href="Default.aspx">Home</a>
         <div>
             <div style="margin: 0 auto; width: 100%;">
                 <div class="" style="text-align: center; margin-top: 4px;">
@@ -118,7 +117,7 @@
                     <asp:TextBox runat="server" ID="tags" Width="250px"></asp:TextBox>
                     <asp:Button runat="server" ID="btnSubmit" Text="Draft" OnClick="btnSubmit_Click" />
                 </p>
-                <div class="jumbotron" style="padding-left: 5%;">
+                <div class="jumbotron" style="padding-left: 5%; overflow: auto;">
                     <asp:DataList runat="server" ID="dlTeams" RepeatDirection="Horizontal" CellPadding="2">
                         <ItemTemplate>
                             <div class="body-content" style="width: 100%; padding: 15px; text-align: center;">
