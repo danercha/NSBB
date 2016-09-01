@@ -94,6 +94,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <a href="Default.aspx">Home</a>
         <div>
             <div style="margin: 0 auto; width: 100%;">
                 <div class="" style="text-align: center; margin-top: 4px;">
